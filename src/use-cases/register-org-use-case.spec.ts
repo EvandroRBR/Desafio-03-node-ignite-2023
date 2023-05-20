@@ -2,16 +2,16 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { compare } from 'bcryptjs';
 
 import { RegisterOrgUseCase } from './register-org-use-case';
-import { InMemoryOrgsRepository } from '../repositories/in-memory/in-memory-users-repository';
+import { InMemoryOrgsRepository } from '../repositories/in-memory/in-memory-orgs-repository';
 import { HttpError } from './errors/org-already-exists-error';
 
 let sut: RegisterOrgUseCase;
-let inMemoryOrgsRepository: InMemoryOrgsRepository;
+let OrgsRepository: InMemoryOrgsRepository;
 
 describe('Register Orgs', () => {
   beforeEach(() => {
-    inMemoryOrgsRepository = new InMemoryOrgsRepository();
-    sut = new RegisterOrgUseCase(inMemoryOrgsRepository);
+    OrgsRepository = new InMemoryOrgsRepository();
+    sut = new RegisterOrgUseCase(OrgsRepository);
   });
 
   it('should create a new org', async () => {
