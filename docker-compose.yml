@@ -8,5 +8,5 @@ services:
     environment:
       - POSTGRESQL_USERNAME=root
       - POSTGRESQL_PASSWORD=123
-      - POSTGRESQL_DATABASE=findafriend
+      - POSTGRESQL_DATABASE=find_a_friend
     container_name: find-a-friend-container
