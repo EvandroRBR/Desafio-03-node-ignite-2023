@@ -15,8 +15,16 @@ export async function authenticateController(
   const { email, password } = authenticateBodySchema.parse(request.body);
 
   const authenticateUseCase = authenticateUseCaseFactory();
+  const org = await authenticateUseCase.execute({ email, password });
 
-  await authenticateUseCase.execute({ email, password });
+  const token = await reply.jwtSign(
+    {},
+    {
+      sign: {
+        sub: org.id,
+      },
+    },
+  );
 
-  return reply.status(200).send();
+  return reply.status(200).send({ token });
 }
