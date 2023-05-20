@@ -2,9 +2,11 @@ import fastify from 'fastify';
 import fastifyJwt from '@fastify/jwt';
 import { ZodError } from 'zod';
 
-import { orgsRoutes } from './http/controllers/orgs/routes';
 import { env } from './env';
 import { HttpError } from './use-cases/errors/org-already-exists-error';
+
+import { orgsRoutes } from './http/controllers/orgs/routes';
+import { petsRouter } from './http/controllers/pets/routes';
 
 export const app = fastify();
 
@@ -13,6 +15,7 @@ app.register(fastifyJwt, {
 });
 
 app.register(orgsRoutes);
+app.register(petsRouter);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
