@@ -1,0 +1,6 @@
+Annotations
+node_modules
+build
+coverage
+.vscode
+.env
