@@ -6,8 +6,6 @@ export async function getOrgProfileController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  await request.jwtVerify();
-
   const getOrgProfileUseCase = GetOrgProfileUseCaseFactory();
   const profile = await getOrgProfileUseCase.execute(request.user.sub);
 
