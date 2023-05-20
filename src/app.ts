@@ -1,4 +1,5 @@
 import fastify from 'fastify';
+import fastifyJwt from '@fastify/jwt';
 import { ZodError } from 'zod';
 
 import { orgsRoutes } from './http/controllers/orgs/routes';
@@ -6,6 +7,10 @@ import { env } from './env';
 import { HttpError } from './use-cases/errors/org-already-exists-error';
 
 export const app = fastify();
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+});
 
 app.register(orgsRoutes);
 
