@@ -17,7 +17,6 @@ export async function registerOrgController(
     email: z.string().email().nonempty(),
     password: z.string().min(6),
   });
-  console.log('teste=====================================');
 
   const {
     name,
@@ -29,11 +28,8 @@ export async function registerOrgController(
     email,
     password,
   } = createOrgBodySchema.parse(request.body);
-  console.log('teste 2 =====================================');
 
   const registerOrgUseCase = registerOrgUseCaseFactory();
-
-  console.log('teste 3 =====================================');
 
   await registerOrgUseCase.execute({
     name,
@@ -45,8 +41,6 @@ export async function registerOrgController(
     email,
     password,
   });
-
-  console.log('teste 4 =====================================');
 
   return reply.status(201).send({ message: 'Organization created!' });
 }
