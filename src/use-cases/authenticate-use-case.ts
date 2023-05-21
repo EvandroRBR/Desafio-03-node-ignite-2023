@@ -1,7 +1,7 @@
 import { Org } from '@prisma/client';
 import { compare } from 'bcryptjs';
 
-import { HttpError } from './errors/org-already-exists-error';
+import { HttpError } from './errors/http-error';
 import { IOrgsRepository } from '@/repositories/orgs-repository';
 
 interface IAuthenticateUseCaseRequest {

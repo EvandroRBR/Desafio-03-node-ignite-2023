@@ -3,7 +3,7 @@ import { compare } from 'bcryptjs';
 
 import { RegisterOrgUseCase } from './register-org-use-case';
 import { InMemoryOrgsRepository } from '../repositories/in-memory/in-memory-orgs-repository';
-import { HttpError } from './errors/org-already-exists-error';
+import { HttpError } from './errors/http-error';
 
 let sut: RegisterOrgUseCase;
 let OrgsRepository: InMemoryOrgsRepository;

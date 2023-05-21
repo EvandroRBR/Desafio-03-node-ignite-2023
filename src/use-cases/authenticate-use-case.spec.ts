@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository';
 import { AuthenticateUseCase } from './authenticate-use-case';
-import { HttpError } from './errors/org-already-exists-error';
+import { HttpError } from './errors/http-error';
 
 let orgsRepository: InMemoryOrgsRepository;
 let sut: AuthenticateUseCase;

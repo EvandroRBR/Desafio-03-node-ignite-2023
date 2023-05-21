@@ -1,7 +1,7 @@
 import { Org } from '@prisma/client';
 
 import { IOrgsRepository } from '@/repositories/orgs-repository';
-import { HttpError } from './errors/org-already-exists-error';
+import { HttpError } from './errors/http-error';
 
 export class GetOrgProfileUseCase {
   constructor(private orgsRepository: IOrgsRepository) {}

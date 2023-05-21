@@ -3,7 +3,7 @@ import fastifyJwt from '@fastify/jwt';
 import { ZodError } from 'zod';
 
 import { env } from './env';
-import { HttpError } from './use-cases/errors/org-already-exists-error';
+import { HttpError } from './use-cases/errors/http-error';
 
 import { orgsRoutes } from './http/controllers/orgs/routes';
 import { petsRouter } from './http/controllers/pets/routes';

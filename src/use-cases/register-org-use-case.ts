@@ -2,7 +2,7 @@ import { Org } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 import { IOrgsRepository } from '@/repositories/orgs-repository';
-import { HttpError } from './errors/org-already-exists-error.js';
+import { HttpError } from './errors/http-error.js';
 
 interface IRegisterOrgRequest {
   name: string;
