@@ -4,7 +4,16 @@ import { prisma } from '@/lib/prisma';
 
 export class PrismaPetsRepository implements IPetsRepository {
   async findManyByCity(city: string) {
-    const petsByCity = await prisma.pet.findMany({ where: { city } });
+    const petsByCity = await prisma.pet.findMany({
+      where: { city },
+      include: {
+        org: {
+          select: {
+            whatsappNumber: true,
+          },
+        },
+      },
+    });
 
     return petsByCity;
   }
