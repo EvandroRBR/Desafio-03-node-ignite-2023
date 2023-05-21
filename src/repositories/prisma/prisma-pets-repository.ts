@@ -1,11 +1,18 @@
 import { Prisma } from '@prisma/client';
-import { IPetsRepository } from '../pets-repository';
+import { IPetsRepository, ISearchPetParams } from '../pets-repository';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaPetsRepository implements IPetsRepository {
-  async findManyByCity(city: string) {
+  async searchManyByParams({ city, age, description, name }: ISearchPetParams) {
     const petsByCity = await prisma.pet.findMany({
-      where: { city },
+      where: {
+        city,
+        age,
+        description: {
+          contains: description,
+        },
+        name,
+      },
       include: {
         org: {
           select: {

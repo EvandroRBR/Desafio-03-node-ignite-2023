@@ -1,6 +1,13 @@
 import { Pet, Prisma } from '@prisma/client';
 
+export interface ISearchPetParams {
+  city: string;
+  name?: string;
+  description?: string;
+  age?: string;
+}
+
 export interface IPetsRepository {
-  findManyByCity(city: string): Promise<Pet[]>;
+  searchManyByParams(params: ISearchPetParams): Promise<Pet[]>;
   create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>;
 }

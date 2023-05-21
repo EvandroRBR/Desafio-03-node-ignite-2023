@@ -1,12 +1,26 @@
 import { Pet, Prisma } from '@prisma/client';
-import { IPetsRepository } from '../pets-repository';
+import { IPetsRepository, ISearchPetParams } from '../pets-repository';
 import { randomUUID } from 'crypto';
 
 export class InMemoryPetsRepository implements IPetsRepository {
   public items: Pet[] = [];
 
-  async findManyByCity(city: string) {
-    const pets = this.items.filter((item) => item.city === city);
+  async searchManyByParams({ name, city, age, description }: ISearchPetParams) {
+    const pets = this.items.filter((item) => {
+      if (name && item.name !== name) {
+        return false;
+      }
+      if (city && item.city !== city) {
+        return false;
+      }
+      if (age && item.age !== age) {
+        return false;
+      }
+      if (description && item.description !== description) {
+        return false;
+      }
+      return true;
+    });
 
     return pets;
   }

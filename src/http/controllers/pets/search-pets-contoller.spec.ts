@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto';
 import { app } from '@/app';
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user';
 
-describe('Find Pet e2e', () => {
+describe('Search Pet e2e', () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -26,21 +26,17 @@ describe('Find Pet e2e', () => {
         orgId: randomUUID(),
       });
 
-    const findPetResponse = await request(app.server)
+    const searchPetResponse = await request(app.server)
       .get('/pets')
       .query({
         city: 'São José dos Campos',
-      })
-      .send({
         name: 'Bud',
-        city: 'São José dos Campos',
-        description: 'Animal legal',
-        age: '4',
-        orgId: randomUUID(),
-      });
+        description: 'legal',
+      })
+      .send();
 
-    expect(findPetResponse.statusCode).toEqual(201);
-    expect(findPetResponse.body[0]).toEqual(
+    expect(searchPetResponse.statusCode).toEqual(201);
+    expect(searchPetResponse.body[0]).toEqual(
       expect.objectContaining({ name: 'Bud' }),
     );
   });
