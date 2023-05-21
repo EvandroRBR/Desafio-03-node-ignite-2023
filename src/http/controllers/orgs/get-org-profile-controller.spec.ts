@@ -1,31 +1,29 @@
-// import { beforeAll, afterAll, describe, expect, it } from 'vitest';
-// import request from 'supertest';
+import { beforeAll, afterAll, describe, expect, it } from 'vitest';
+import request from 'supertest';
 
-// import { app } from '@/app';
+import { app } from '@/app';
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user';
 
-// describe('Get Profile e2e', () => {
-//   beforeAll(async () => {
-//     await app.ready();
-//   });
+describe('Get Profile e2e', () => {
+  beforeAll(async () => {
+    await app.ready();
+  });
 
-//   afterAll(async () => {
-//     await app.close();
-//   });
+  afterAll(async () => {
+    await app.close();
+  });
 
-//   it('should be able to get an organization profile', async () => {
-//     const org = await request(app.server).post('/orgs').send({
-//       name: 'Pet Organization',
-//       city: 'São José dis',
-//       street: 'São Boaventura',
-//       number: '23',
-//       zipcode: '04650-185',
-//       whatsappNumber: '11999999999',
-//       email: 'org@email.com',
-//       password: '123456',
-//     });
+  it('should be able to get an organization profile', async () => {
+    const { token } = await createAndAuthenticateUser(app);
 
-//     const response = await request(app.server).get('/sessions').send(org.id);
+    const profileResponse = await request(app.server)
+      .get('/me')
+      .set('Authorization', `Bearer ${token}`)
+      .send();
 
-//     expect(response.statusCode).toEqual(200);
-//   });
-// });
+    expect(profileResponse.statusCode).toEqual(200);
+    expect(profileResponse.body.profile).toEqual(
+      expect.objectContaining({ email: 'org@email.com' }),
+    );
+  });
+});
