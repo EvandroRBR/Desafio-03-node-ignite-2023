@@ -5,22 +5,30 @@ import { randomUUID } from 'crypto';
 export class InMemoryPetsRepository implements IPetsRepository {
   public items: Pet[] = [];
 
-  async searchManyByParams({ name, city, age, description }: ISearchPetParams) {
-    const pets = this.items.filter((item) => {
-      if (name && item.name !== name) {
-        return false;
-      }
-      if (city && item.city !== city) {
-        return false;
-      }
-      if (age && item.age !== age) {
-        return false;
-      }
-      if (description && item.description !== description) {
-        return false;
-      }
-      return true;
-    });
+  async searchManyByParams({
+    name,
+    city,
+    age,
+    description,
+    page,
+  }: ISearchPetParams) {
+    const pets = this.items
+      .filter((item) => {
+        if (name && item.name !== name) {
+          return false;
+        }
+        if (city && item.city !== city) {
+          return false;
+        }
+        if (age && item.age !== age) {
+          return false;
+        }
+        if (description && item.description !== description) {
+          return false;
+        }
+        return true;
+      })
+      .slice((page - 1) * 20, page * 20);
 
     return pets;
   }

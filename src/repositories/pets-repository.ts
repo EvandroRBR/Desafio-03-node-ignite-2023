@@ -5,6 +5,7 @@ export interface ISearchPetParams {
   name?: string;
   description?: string;
   age?: string;
+  page: number;
 }
 
 export interface IPetsRepository {

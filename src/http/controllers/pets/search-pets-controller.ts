@@ -12,6 +12,7 @@ export async function searchPetsByCityController(
     name: z.string().optional(),
     description: z.string().optional(),
     age: z.string().optional(),
+    page: z.coerce.number().min(1).default(1),
   });
 
   const query = searchPetQuerySchema.parse(request.query);

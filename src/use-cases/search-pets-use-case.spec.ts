@@ -35,7 +35,7 @@ describe('Search Pets By City', () => {
         org_id: randomUUID(),
       });
     }
-    const pets = await sut.execute({ city: 'São José dos Campos' });
+    const pets = await sut.execute({ city: 'São José dos Campos', page: 1 });
 
     expect(pets).toHaveLength(5);
   });
@@ -62,7 +62,31 @@ describe('Search Pets By City', () => {
         org_id: randomUUID(),
       });
     }
-    const pets = await sut.execute({ city: 'São José dos Campos', age: '4' });
+    const pets = await sut.execute({
+      city: 'São José dos Campos',
+      age: '4',
+      page: 1,
+    });
+
+    expect(pets).toHaveLength(2);
+  });
+
+  it('should be able to search paginated pets', async () => {
+    for (let i = 1; i <= 22; i++) {
+      petsRepository.create({
+        id: randomUUID(),
+        name: `Bud ${i}`,
+        city: 'São José dos Campos',
+        description: `Animal legal ${i}`,
+        age: `${i}`,
+        created_at: new Date(),
+        org_id: randomUUID(),
+      });
+    }
+    const pets = await sut.execute({
+      city: 'São José dos Campos',
+      page: 2,
+    });
 
     expect(pets).toHaveLength(2);
   });
