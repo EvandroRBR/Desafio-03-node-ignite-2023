@@ -29,9 +29,10 @@ app.register(petsRouter);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
-    return reply
-      .status(400)
-      .send({ message: 'Validation Error.', issues: error.format() });
+    return reply.status(400).send({
+      message: '\x1b[31mValidation Error.\x1b[0m',
+      issues: error.format(),
+    });
   }
 
   if (error instanceof HttpError) {
