@@ -1,6 +1,3 @@
-// Deve ser possível cadastrar um pet
-// Um pet deve estar ligado a uma org
-
 import { IPetsRepository } from '@/repositories/pets-repository';
 import { Pet } from '@prisma/client';
 
