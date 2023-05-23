@@ -3,7 +3,7 @@ import request from 'supertest';
 import { randomUUID } from 'crypto';
 
 import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user';
+import { createAndAuthenticateOrg } from '@/utils/test/create-and-authenticate-user';
 
 describe('Register Pet e2e', () => {
   beforeAll(async () => {
@@ -14,7 +14,7 @@ describe('Register Pet e2e', () => {
   });
 
   it('should be able to register a pet', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateOrg(app, true);
     const registerPetResponse = await request(app.server)
       .post('/pets')
       .set('Authorization', `Bearer ${token}`)

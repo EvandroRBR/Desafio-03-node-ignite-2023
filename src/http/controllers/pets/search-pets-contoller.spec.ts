@@ -3,7 +3,7 @@ import request from 'supertest';
 import { randomUUID } from 'crypto';
 
 import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user';
+import { createAndAuthenticateOrg } from '@/utils/test/create-and-authenticate-user';
 
 describe('Search Pet e2e', () => {
   beforeAll(async () => {
@@ -13,8 +13,8 @@ describe('Search Pet e2e', () => {
     await app.close();
   });
 
-  it('should be able to search a pet by city', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+  it('should be able to search a pet by params', async () => {
+    const { token } = await createAndAuthenticateOrg(app, true);
     await request(app.server)
       .post('/pets')
       .set('Authorization', `Bearer ${token}`)
@@ -32,7 +32,9 @@ describe('Search Pet e2e', () => {
         city: 'São José dos Campos',
         name: 'Bud',
         description: 'legal',
+        page: 1,
       })
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(searchPetResponse.statusCode).toEqual(201);

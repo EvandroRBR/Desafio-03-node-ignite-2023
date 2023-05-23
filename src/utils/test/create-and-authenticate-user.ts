@@ -1,10 +1,12 @@
+import { prisma } from '@/lib/prisma';
 import { hash } from 'bcryptjs';
 import { FastifyInstance } from 'fastify';
 import request from 'supertest';
 
-import { prisma } from '@/lib/prisma';
-
-export async function createAndAuthenticateUser(app: FastifyInstance) {
+export async function createAndAuthenticateOrg(
+  app: FastifyInstance,
+  isAdmin = false,
+) {
   await prisma.org.create({
     data: {
       name: 'Pet Organization',
@@ -15,6 +17,7 @@ export async function createAndAuthenticateUser(app: FastifyInstance) {
       whatsappNumber: '11999999999',
       email: 'org@email.com',
       password_hash: await hash('123456', 6),
+      role: isAdmin ? 'ADMIN' : 'MEMBER',
     },
   });
 

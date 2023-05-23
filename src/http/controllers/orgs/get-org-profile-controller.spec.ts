@@ -2,7 +2,7 @@ import { beforeAll, afterAll, describe, expect, it } from 'vitest';
 import request from 'supertest';
 
 import { app } from '@/app';
-import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user';
+import { createAndAuthenticateOrg } from '@/utils/test/create-and-authenticate-user';
 
 describe('Get Profile e2e', () => {
   beforeAll(async () => {
@@ -14,7 +14,7 @@ describe('Get Profile e2e', () => {
   });
 
   it('should be able to get an organization profile', async () => {
-    const { token } = await createAndAuthenticateUser(app);
+    const { token } = await createAndAuthenticateOrg(app);
 
     const profileResponse = await request(app.server)
       .get('/me')
